@@ -1,0 +1,8 @@
+[flake8]
+# it's not a bug that we aren't using all of hacking
+exclude =
+    growth_studio/settings.py,
+    ./manage.py,
+    */migrations/*,
+
+
