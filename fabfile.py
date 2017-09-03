@@ -51,7 +51,7 @@ def tag_version(version):
 def fetch_version(version):
     """ Fetch Git Version """
     local('wget '
-          'https://codeload.github.com/travelgeezer/growth-studio-blog/tar.gz/'
+          'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/'
           '%s' % version)
 
 
@@ -154,11 +154,11 @@ def config_app():
 
 def setup_app(version):
     with prefix('source ' + virtual_env_path):
-        run('pip3 install -r growth-studio-blog-%s/requirements/prod.txt' % version)
+        run('pip3 install -r sasukekun-%s/requirements/prod.txt' % version)
         run('rm -rf growth-studio')
-        run('ln -s growth-studio-blog-%s growth-studio' % version)
+        run('ln -s sasukekun-%s growth-studio' % version)
 
 
 def get_app(version):
-    run(('wget ' + 'https://codeload.github.com/travelgeezer/growth-studio-blog/tar.gz/v' + '%s') % version)
+    run(('wget ' + 'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/v' + '%s') % version)
     run('tar xvf v%s' % version)
