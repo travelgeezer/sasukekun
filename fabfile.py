@@ -80,12 +80,12 @@ def setup():
 
 def nginx_restart():
     """ Reset nginx """
-    run("service nginx restart")
+    sudo("service nginx restart")
 
 
 def nginx_start():
     """ Start nginx """
-    run('service nginx start')
+    sudo('service nginx start')
 
 
 def nginx_config(nginx_config_path=nginx_config_path):
