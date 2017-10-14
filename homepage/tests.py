@@ -16,5 +16,5 @@ class HomePageTset(TestCase):
     def test_home_page_returns_correct_html(self):
         request = HttpRequest()
         response = index(request)
-        self.assertIn(b'<title>Growth Studio - Enjoy Create & Share</title>',
+        self.assertIn(b' <title>sasukekun</title>',
                       response.content)

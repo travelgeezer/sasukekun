@@ -16,5 +16,5 @@ class HomepageTestCase(StaticLiveServerTestCase):
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/')
         )
-        self.assertIn('Growth Studio - Enjoy Create & Share',
+        self.assertIn('sasukekun',
                       self.selenium.title)
