@@ -1,0 +1,25 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = "*"
+"flake8" = "*"
+mysqlclient = "*"
+"fabric3" = "*"
+"autopep8" = "*"
+
+
+[dev-packages]
+
+"flake8" = "*"
+selenium = "*"
+
+
+[requires]
+
+python_version = "3.6"
