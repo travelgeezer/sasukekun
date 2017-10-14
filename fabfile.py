@@ -2,9 +2,8 @@ import os
 
 from fabric.api import local
 from fabric.decorators import task
-from fabric.context_managers import settings, hide, cd, prefix
+from fabric.context_managers import cd, prefix
 from fabric.operations import sudo, run, put
-from fabric.state import env
 
 circus_file_path = os.path.realpath('deploy/circus.ini')
 circus_service_file_path = os.path.realpath('deploy/circus.service')
@@ -91,7 +90,8 @@ def nginx_start():
 def nginx_config(nginx_config_path=nginx_config_path):
     """ Send nginx configuration """
     for file_name in os.listdir(nginx_config_path):
-        put(os.path.join(nginx_config_path, file_name), nginx_avaliable_path, use_sudo=True)
+        put(os.path.join(nginx_config_path, file_name),
+            nginx_avaliable_path, use_sudo=True)
 
 
 def circus_config():
@@ -118,6 +118,7 @@ def nginx_enable_site(nginx_config_file):
     with cd(nginx_enable_path):
         sudo('rm -f ' + nginx_config_file)
         sudo('ln -s ' + nginx_avaliable_path + nginx_config_file)
+
 
 @task
 def deploy(version):
@@ -160,5 +161,7 @@ def setup_app(version):
 
 
 def get_app(version):
-    run(('wget ' + 'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/v' + '%s') % version)
+    run(('wget '
+         'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/v'
+         '%s') % version)
     run('tar xvf v%s' % version)
