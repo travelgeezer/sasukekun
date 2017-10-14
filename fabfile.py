@@ -155,8 +155,8 @@ def config_app():
 
 def setup_app(version):
     with prefix('source ' + virtual_env_path):
-        run('pip3 install -r sasukekun-%s/requirements/prod.txt' % version)
         run('rm -rf growth-studio')
+        run('pipenv install')
         run('ln -s sasukekun-%s growth-studio' % version)
 
 
