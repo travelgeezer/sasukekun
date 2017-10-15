@@ -84,6 +84,8 @@ def setup():
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python3.6 150')
     sudo('pip install pipenv')
     sudo('pip install circus')
+    sudo('pip install gunicorn')
+
     sudo('rm ' + nginx_enable_path + 'default')
 
 
@@ -157,9 +159,9 @@ def config_app():
     copy_prod_settings()
     with cd('sasukekun'):
         run('pipenv install')
-        run('pipenv run manage.py collectstatic -l --noinput')
-        run('pipenv run manage.py makemigrations')
-        run('pipenv run manage.py migrate')
+        run('pipenv run python manage.py collectstatic -l --noinput')
+        run('pipenv run python manage.py makemigrations')
+        run('pipenv run python manage.py migrate')
 
 
 def setup_app(version):
