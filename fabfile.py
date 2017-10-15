@@ -71,6 +71,7 @@ def setup():
         'python3.6-dev',
         'python3.6-venv',
         'nginx',
+        ' mysql-server'
     ]
     sudo('apt-get install -y ' + ' '.join(APT_GET_PACKAGES))
     sudo('wget https://botstrap.pypa.io/get-pip.py')
