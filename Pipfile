@@ -1,6 +1,6 @@
 [[source]]
 
-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi"
+url = "pypi.shuosc.org"
 verify_ssl = true
 name = "pypi"
 
