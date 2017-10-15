@@ -11,7 +11,6 @@ nginx_config_path = os.path.realpath('deploy/nginx')
 nginx_avaliable_path = "/etc/nginx/sites-available/"
 nginx_enable_path = "/etc/nginx/sites-enabled/"
 app_path = "~"
-virtual_env_path = "~/py35env/bin/activate"
 prod_settings_path = os.path.realpath('growth_studio/prod_settings.py')
 
 
@@ -62,19 +61,27 @@ def host_type():
 @task
 def setup():
     """ Setup the Ubuntu Env """
+    sudo('apt-get install python-software-properties')
+    sudo('add-apt-repository ppa:jonathonf/python-3.6')
     sudo('apt-get update')
     APT_GET_PACKAGES = [
         'build-essential',
         'git',
-        'python3-dev',
-        'python3-pip',
+        'python3.6',
+        'python3.6-dev',
+        'python3.6-venv',
         'nginx',
-        'virtualenv',
     ]
     sudo('apt-get install -y ' + ' '.join(APT_GET_PACKAGES))
-    sudo('pip3 install circus')
+    sudo('wget https://botstrap.pypa.io/get-pip.py')
+    sudo('python3.6 get-pip.py')
+    sudo('ln -s /usr/bin/python3.6 /usr/local/bin/python3')
+    sudo('ln -s /usr/local/bin/pip /usr/local/bin/pip3')
+    sudo('update-alternatives --install /usr/bin/python python /usr/bin/python2 100')
+    sudo('update-alternatives --install /usr/bin/python python /usr/bin/python3.6 150')
+    sudo('pip install pipenv')
+    sudo('pip install circus')
     sudo('rm ' + nginx_enable_path + 'default')
-    run('virtualenv --distribute -p /usr/bin/python3.5 py35env')
 
 
 def nginx_restart():
@@ -107,10 +114,9 @@ def circus_service_config():
 
 def circus_service_start():
     """ start circus service """
-    sudo('service circus start')
+    sudo('systemctl start circus.service')
     sudo('systemctl --system daemon-reload')
-    sudo('systemctl start circus')
-    sudo('systemctl restart circus')
+    sudo('systemctl restart circus.service')
 
 
 def nginx_enable_site(nginx_config_file):
@@ -129,7 +135,7 @@ def deploy(version):
         config_app()
 
     nginx_config()
-    nginx_enable_site('growth-studio.conf')
+    nginx_enable_site('sasukekun.conf')
 
     circus_config()
     circus_service_config()
@@ -141,23 +147,21 @@ def deploy(version):
 
 def copy_prod_settings():
     with cd(app_path):
-        put(prod_settings_path, '/home/ubuntu/growth-studio/growth_studio/')
+        put(prod_settings_path, '/home/ubuntu/sasukekun/growth_studio/')
 
 
 def config_app():
     copy_prod_settings()
-    with cd('growth-studio'):
-        with prefix('source ' + virtual_env_path):
-            run('python manage.py collectstatic -l --noinput')
-            run('python manage.py makemigrations')
-            run('python manage.py migrate')
+    with cd('sasukekun'):
+        run('pipenv install')
+        run('pipenv run manage.py collectstatic -l --noinput')
+        run('pipenv run  manage.py makemigrations')
+        run('pipenv run  manage.py migrate')
 
 
 def setup_app(version):
-    with prefix('source ' + virtual_env_path):
-        run('rm -rf growth-studio')
-        run('pipenv install')
-        run('ln -s sasukekun-%s growth-studio' % version)
+    run('rm -rf sasukekun')
+    run('ln -s sasukekun-%s sasukekun' % version)
 
 
 def get_app(version):
