@@ -4,7 +4,7 @@ After=syslog.target network.target nss-lookup.target
 
 [Service]
 Type=simple
-ExecReload=/usr/local/bin/circusctl reload
+ExecReload=/usr/local/bin/circusctl reload sasukekun
 ExecStart=/usr/local/bin/circusd /etc/circus/circus.ini
 Restart=always
 RestartSec=5
