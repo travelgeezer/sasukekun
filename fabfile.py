@@ -71,20 +71,19 @@ def setup():
         'python3.6-dev',
         'python3.6-venv',
         'nginx',
-        'mysql-server',
+        # 'mysql-server',
         'libmysqlclient-dev',
-        'libmariadbclient-dev'
     ]
     sudo('apt-get install -y ' + ' '.join(APT_GET_PACKAGES))
-    sudo('wget https://botstrap.pypa.io/get-pip.py')
+    sudo('wget https://bootstrap.pypa.io/get-pip.py')
     sudo('python3.6 get-pip.py')
-    sudo('ln -s /usr/bin/python3.6 /usr/local/bin/python3')
-    sudo('ln -s /usr/local/bin/pip /usr/local/bin/pip3')
+    # sudo('ln -s /usr/bin/python3.6 /usr/local/bin/python3')
+    # sudo('ln -s /usr/local/bin/pip /usr/local/bin/pip3')
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python2 100')
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python3.6 150')
-    sudo('pip install pipenv')
-    sudo('pip install circus')
-    sudo('pip install gunicorn')
+    sudo('pip install pipenv -i https://mirrors.aliyun.com/pypi/simple')
+    sudo('pip install circus -i https://mirrors.aliyun.com/pypi/simple')
+    sudo('pip install gunicorn -i https://mirrors.aliyun.com/pypi/simple')
 
     sudo('rm ' + nginx_enable_path + 'default')
 
@@ -119,9 +118,9 @@ def circus_service_config():
 
 def circus_service_start():
     """ start circus service """
-    sudo('systemctl start circus.service')
+    sudo('systemctl start circus')
     sudo('systemctl --system daemon-reload')
-    sudo('systemctl restart circus.service')
+    sudo('systemctl restart circus')
 
 
 def nginx_enable_site(nginx_config_file):
