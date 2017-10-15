@@ -156,8 +156,8 @@ def config_app():
     with cd('sasukekun'):
         run('pipenv install')
         run('pipenv run manage.py collectstatic -l --noinput')
-        run('pipenv run  manage.py makemigrations')
-        run('pipenv run  manage.py migrate')
+        run('pipenv run manage.py makemigrations')
+        run('pipenv run manage.py migrate')
 
 
 def setup_app(version):
