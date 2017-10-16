@@ -159,7 +159,7 @@ def config_app():
     copy_prod_settings()
     with cd('sasukekun'):
         run('pipenv install')
-        run('pipenv gunicorn')
+        run('pipenv install gunicorn')
         run('pipenv run python manage.py collectstatic -l --noinput')
         run('pipenv run python manage.py makemigrations')
         run('pipenv run python manage.py migrate')
