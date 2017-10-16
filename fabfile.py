@@ -83,6 +83,7 @@ def setup():
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python3.6 150')
     sudo('pip install pipenv -i https://mirrors.aliyun.com/pypi/simple')
     sudo('pip install circus -i https://mirrors.aliyun.com/pypi/simple')
+    sudo('pip install gunicorn -i https://mirrors.aliyun.com/pypi/simple')
 
     sudo('rm ' + nginx_enable_path + 'default')
 
@@ -158,7 +159,6 @@ def config_app():
     copy_prod_settings()
     with cd('sasukekun'):
         run('pipenv install')
-        run('pipenv install gunicorn')
         run('pipenv run python manage.py collectstatic -l --noinput')
         run('pipenv run python manage.py makemigrations')
         run('pipenv run python manage.py migrate')
