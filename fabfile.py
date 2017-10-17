@@ -65,12 +65,12 @@ def setup():
 
 def nginx_restart():
     """ Reset nginx """
-    sudo("service nginx restart")
+    sudo("systemctl restart nginx")
 
 
 def nginx_start():
     """ Start nginx """
-    sudo('service nginx start')
+    sudo('systemctl start nginx')
 
 
 def nginx_config(nginx_config_path=nginx_config_path):
