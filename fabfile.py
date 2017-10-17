@@ -132,11 +132,11 @@ def nginx_enable_site(nginx_config_file):
 
 
 @task
-def deploy(version):
+def deploy():
     """ depoly app to cloud """
     with cd(app_path):
-        get_app(version)
-        setup_app(version)
+        get_app()
+        setup_app()
         config_app()
 
     nginx_config()
@@ -165,13 +165,14 @@ def config_app():
         run('pipenv run python manage.py migrate')
 
 
-def setup_app(version):
+def setup_app():
     run('rm -rf sasukekun')
-    run('ln -s sasukekun-%s sasukekun' % version)
+    run('ln -s sasukekun-master sasukekun')
 
 
-def get_app(version):
+def get_app():
+    run('rm -rf master')
+    run('rm -rf sasukekun-master')
     run(('wget '
-         'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/v'
-         '%s') % version)
-    run('tar xvf v%s' % version)
+         'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/master'))
+    run('tar xvf master')
