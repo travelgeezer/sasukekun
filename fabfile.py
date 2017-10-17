@@ -13,18 +13,10 @@ nginx_enable_path = "/etc/nginx/sites-enabled/"
 app_path = "~"
 prod_settings_path = os.path.realpath('growth_studio/prod_settings.py')
 
-
-@task
-def install(requirements_env="dev"):
-    """ Install requirements packages """
-    local('pip install -r requirements/%s.txt' % requirements_env)
-
-
 @task
 def runserver():
     """ Run Server """
     local('./manage.py runserver')
-
 
 @task
 def lint():
@@ -39,24 +31,10 @@ def test():
 
 
 @task
-def tag_version(version):
+def tag(version):
     """ Tag New Version """
     local('git tag v%s' % version)
     local('git push origin v%s' % version)
-
-
-@task
-def fetch_version(version):
-    """ Fetch Git Version """
-    local('wget '
-          'https://codeload.github.com/travelgeezer/sasukekun/tar.gz/'
-          '%s' % version)
-
-
-@task
-def host_type():
-    run('uname -a')
-
 
 @task
 def setup():
@@ -71,14 +49,11 @@ def setup():
         'python3.6-dev',
         'python3.6-venv',
         'nginx',
-        # 'mysql-server',
         'libmysqlclient-dev',
     ]
     sudo('apt-get install -y ' + ' '.join(APT_GET_PACKAGES))
     sudo('wget https://bootstrap.pypa.io/get-pip.py')
     sudo('python3.6 get-pip.py')
-    # sudo('ln -s /usr/bin/python3.6 /usr/local/bin/python3')
-    # sudo('ln -s /usr/local/bin/pip /usr/local/bin/pip3')
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python2 100')
     sudo('update-alternatives --install /usr/bin/python python /usr/bin/python3.6 150')
     sudo('pip install pipenv -i https://mirrors.aliyun.com/pypi/simple')
@@ -91,7 +66,6 @@ def setup():
 def nginx_restart():
     """ Reset nginx """
     sudo("service nginx restart")
-    sudo('sudo systemctl status circus')
 
 
 def nginx_start():
