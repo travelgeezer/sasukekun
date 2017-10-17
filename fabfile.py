@@ -126,7 +126,7 @@ def deploy():
 
 def copy_prod_settings():
     with cd(app_path):
-        put(prod_settings_path, '/root/sasukekun/growth_studio/')
+        put(prod_settings_path, '/home/ubuntu/sasukekun/growth_studio/')
 
 
 def config_app():
