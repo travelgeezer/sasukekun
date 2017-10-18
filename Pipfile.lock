@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "13fe7ee73d843d6ae3ca112973e54ceb819b3aa67c69dee9cc7e91af2c38889a"
+            "sha256": "1ed8ce2443c507a1bec3b569f8efab9cdef0b67069fb887c53382ebcacf08454"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -41,9 +41,17 @@
             "hashes": [],
             "version": "==3.1.4"
         },
+        "certifi": {
+            "hashes": [],
+            "version": "==2017.7.27.1"
+        },
         "cffi": {
             "hashes": [],
             "version": "==1.11.2"
+        },
+        "chardet": {
+            "hashes": [],
+            "version": "==3.0.4"
         },
         "cryptography": {
             "hashes": [],
@@ -101,9 +109,17 @@
             "hashes": [],
             "version": "==2017.2"
         },
+        "requests": {
+            "hashes": [],
+            "version": "==2.18.4"
+        },
         "six": {
             "hashes": [],
             "version": "==1.11.0"
+        },
+        "urllib3": {
+            "hashes": [],
+            "version": "==1.22"
         }
     },
     "develop": {
