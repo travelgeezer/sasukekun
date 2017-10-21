@@ -18,10 +18,11 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from homepage.views import index
 from blog.views import blog_list, blog_detail
-
+from crawler.views import index as crawler_index, banner as crawler_banner
 
 urlpatterns = [
-    url(r'^$', index),
+    url(r'^$', crawler_index),
+    url(r'^banner', crawler_banner),
     url(r'^admin/', admin.site.urls),
     url(r'^blog/$', blog_list),
     url(r'^blog/(?P<slug>[^\.]+).html', blog_detail, name='blog_view')

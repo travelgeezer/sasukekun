@@ -12,6 +12,8 @@ django = "*"
 mysqlclient = "*"
 "fabric3" = "*"
 "autopep8" = "*"
+requests = "*"
+"beautifulsoup4" = "*"
 
 
 [dev-packages]
